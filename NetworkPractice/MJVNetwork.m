@@ -48,8 +48,6 @@
 {
     NSDictionary *userDictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"Lily", @"nickname", nil];
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:userDictionary options:0 error:nil];
-//    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-//    NSLog(@"%@",jsonString);
     
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     config.HTTPMaximumConnectionsPerHost = 1;
@@ -76,8 +74,6 @@
 {
     NSDictionary *userDictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"Mami Chula", @"nickname", nil];
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:userDictionary options:NSJSONWritingPrettyPrinted error:nil];
-//    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-//    NSLog(@"%@",jsonString);
     
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     config.HTTPMaximumConnectionsPerHost = 1;
