@@ -11,8 +11,8 @@
 @interface MJVNetwork : NSObject
 
 - (void)fetch;
-- (void)post;
-- (void)put;
+- (void)postNickname:(NSString *)name;
+- (void)putNickname:(NSString *)name atIndex:(NSNumber *)number;
 - (void)deleteData;
 
 @end

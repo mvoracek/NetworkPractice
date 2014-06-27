@@ -21,10 +21,20 @@
 		C90B425B195B0CBE003EA284 /* NetworkPracticeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C90B425A195B0CBE003EA284 /* NetworkPracticeTests.m */; };
 		C90B4266195B0D09003EA284 /* MJVNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = C90B4265195B0D09003EA284 /* MJVNetwork.m */; };
 		C90B4269195B6DFE003EA284 /* MJVAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = C90B4268195B6DFE003EA284 /* MJVAlbum.m */; };
+		C90B426F195E08B3003EA284 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90B424E195B0CBE003EA284 /* XCTest.framework */; };
+		C90B4270195E08B3003EA284 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90B4235195B0CBE003EA284 /* Foundation.framework */; };
+		C90B4271195E08B3003EA284 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C90B4239195B0CBE003EA284 /* UIKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		C90B4252195B0CBE003EA284 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C90B422A195B0CBE003EA284 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C90B4231195B0CBE003EA284;
+			remoteInfo = NetworkPractice;
+		};
+		C90B427B195E08B3003EA284 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C90B422A195B0CBE003EA284 /* Project object */;
 			proxyType = 1;
@@ -54,6 +64,7 @@
 		C90B4265195B0D09003EA284 /* MJVNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJVNetwork.m; sourceTree = "<group>"; };
 		C90B4267195B6DFE003EA284 /* MJVAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJVAlbum.h; sourceTree = "<group>"; };
 		C90B4268195B6DFE003EA284 /* MJVAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJVAlbum.m; sourceTree = "<group>"; };
+		C90B426E195E08B3003EA284 /* NetworkPractice Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NetworkPractice Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +88,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C90B426B195E08B3003EA284 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C90B426F195E08B3003EA284 /* XCTest.framework in Frameworks */,
+				C90B4271195E08B3003EA284 /* UIKit.framework in Frameworks */,
+				C90B4270195E08B3003EA284 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -95,6 +116,7 @@
 			children = (
 				C90B4232195B0CBE003EA284 /* NetworkPractice.app */,
 				C90B424D195B0CBE003EA284 /* NetworkPracticeTests.xctest */,
+				C90B426E195E08B3003EA284 /* NetworkPractice Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -192,6 +214,24 @@
 			productReference = C90B424D195B0CBE003EA284 /* NetworkPracticeTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		C90B426D195E08B3003EA284 /* NetworkPractice Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C90B427D195E08B3003EA284 /* Build configuration list for PBXNativeTarget "NetworkPractice Tests" */;
+			buildPhases = (
+				C90B426A195E08B3003EA284 /* Sources */,
+				C90B426B195E08B3003EA284 /* Frameworks */,
+				C90B426C195E08B3003EA284 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				C90B427C195E08B3003EA284 /* PBXTargetDependency */,
+			);
+			name = "NetworkPractice Tests";
+			productName = "NetworkPractice Tests";
+			productReference = C90B426E195E08B3003EA284 /* NetworkPractice Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -203,6 +243,9 @@
 				ORGANIZATIONNAME = VOKAL;
 				TargetAttributes = {
 					C90B424C195B0CBE003EA284 = {
+						TestTargetID = C90B4231195B0CBE003EA284;
+					};
+					C90B426D195E08B3003EA284 = {
 						TestTargetID = C90B4231195B0CBE003EA284;
 					};
 				};
@@ -221,6 +264,7 @@
 			targets = (
 				C90B4231195B0CBE003EA284 /* NetworkPractice */,
 				C90B424C195B0CBE003EA284 /* NetworkPracticeTests */,
+				C90B426D195E08B3003EA284 /* NetworkPractice Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -240,6 +284,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				C90B4259195B0CBE003EA284 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C90B426C195E08B3003EA284 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,6 +316,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C90B426A195E08B3003EA284 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -272,6 +330,11 @@
 			isa = PBXTargetDependency;
 			target = C90B4231195B0CBE003EA284 /* NetworkPractice */;
 			targetProxy = C90B4252195B0CBE003EA284 /* PBXContainerItemProxy */;
+		};
+		C90B427C195E08B3003EA284 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C90B4231195B0CBE003EA284 /* NetworkPractice */;
+			targetProxy = C90B427B195E08B3003EA284 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -431,6 +494,46 @@
 			};
 			name = Release;
 		};
+		C90B427E195E08B3003EA284 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/NetworkPractice.app/NetworkPractice";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NetworkPractice Tests/NetworkPractice Tests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "NetworkPractice Tests/NetworkPractice Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		C90B427F195E08B3003EA284 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/NetworkPractice.app/NetworkPractice";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NetworkPractice Tests/NetworkPractice Tests-Prefix.pch";
+				INFOPLIST_FILE = "NetworkPractice Tests/NetworkPractice Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -456,6 +559,14 @@
 			buildConfigurations = (
 				C90B4262195B0CBE003EA284 /* Debug */,
 				C90B4263195B0CBE003EA284 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		C90B427D195E08B3003EA284 /* Build configuration list for PBXNativeTarget "NetworkPractice Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C90B427E195E08B3003EA284 /* Debug */,
+				C90B427F195E08B3003EA284 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};

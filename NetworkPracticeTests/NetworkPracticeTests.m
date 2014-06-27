@@ -7,8 +7,10 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "MJVNetwork.h"
 
 @interface NetworkPracticeTests : XCTestCase
+@property dispatch_semaphore_t waitSemaphore;
 
 @end
 
@@ -16,6 +18,7 @@
 
 - (void)setUp
 {
+    self.waitSemaphore = dispatch_semaphore_create(0);
     [super setUp];
     // Put setup code here. This method is called before the invocation of each test method in the class.
 }
@@ -26,9 +29,23 @@
     [super tearDown];
 }
 
-- (void)testExample
+-(void)testPost
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    id network = [[MJVNetwork alloc] init];
+    [network postNickname:@"James Baxter"];
+}
+
+- (void)waitForSemaphoreOrSeconds:(NSInteger)waitTimeInSeconds
+{
+    NSDate *timeoutDate = [NSDate dateWithTimeIntervalSinceNow:waitTimeInSeconds];
+    while (dispatch_semaphore_wait(self.waitSemaphore, DISPATCH_TIME_NOW)) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:timeoutDate];
+        NSLog(@"waiting for response...");
+        if (timeoutDate == [timeoutDate earlierDate:[NSDate date]]) {
+            XCTAssertTrue(NO, @"Waiting for a response took longer than %zd seconds", waitTimeInSeconds);
+            return;
+        }
+    }
 }
 
 @end
