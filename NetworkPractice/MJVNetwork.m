@@ -30,6 +30,13 @@
     return request;
 }
 
+-(NSData *)createDataWithName:(NSString *)name
+{
+    NSDictionary *userDictionary = [NSDictionary dictionaryWithObjectsAndKeys:name, @"nickname", nil];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:userDictionary options:0 error:nil];
+    return data;
+}
+
 - (void)fetch
 {
     NSURLSession *session = [self configSession];
@@ -59,14 +66,12 @@
 
 - (void)postNickname:(NSString *)name
 {
-    NSDictionary *userDictionary = [NSDictionary dictionaryWithObjectsAndKeys:name, @"nickname", nil];
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:userDictionary options:0 error:nil];
-    
+    NSData *jsonData = [self createDataWithName:name];
     NSURLSession *session = [self configSession];
     NSMutableURLRequest *request = [self makeRequestWithURL:@"http://localhost:5000/create"];
+    
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPMethod:@"POST"];
-    
     NSURLSessionUploadTask *uploadTask = [session uploadTaskWithRequest:request fromData:jsonData];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
@@ -80,9 +85,7 @@
 
 - (void)putNickname:(NSString *)name atIndex:(NSNumber *)index
 {
-    NSDictionary *userDictionary = [NSDictionary dictionaryWithObjectsAndKeys:name, @"nickname", nil];
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:userDictionary options:NSJSONWritingPrettyPrinted error:nil];
-    
+    NSData *jsonData = [self createDataWithName:name];
     NSURLSession *session = [self configSession];
     NSMutableURLRequest *request = [self makeRequestWithURL:@"http://localhost:5000/update/2"];
 
