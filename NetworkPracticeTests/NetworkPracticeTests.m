@@ -29,10 +29,23 @@
     [super tearDown];
 }
 
--(void)testPost
+- (void)testFetch
+{
+    id network = [[MJVNetwork alloc] init];
+    //NSDictionary *jsonDictionary = [network getUserWithID:14];
+    dispatch_semaphore_signal(self.waitSemaphore);
+    
+    [self waitForSemaphoreOrSeconds:5];
+    
+    XCTAssertNotNil(network, @"Network think didn't return a user dictionary");
+    XCTAssertEqual([network valueForKey:@"id"], @14, @"User ID returned was not correct");
+}
+
+- (void)testPost
 {
     id network = [[MJVNetwork alloc] init];
     [network postNickname:@"James Baxter"];
+    //XCTAssertNotNil(status, @"");
 }
 
 - (void)waitForSemaphoreOrSeconds:(NSInteger)waitTimeInSeconds

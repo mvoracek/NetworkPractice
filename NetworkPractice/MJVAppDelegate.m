@@ -17,7 +17,7 @@
     [network postNickname:@"Lily"];
     [network putNickname:@"Mami Chula" atIndex:@2];
     [network deleteData];
-    [network fetch];
+    [network fetchAllUsers];
     return YES;
 }
 

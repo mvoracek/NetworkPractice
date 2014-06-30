@@ -10,7 +10,9 @@
 
 @interface MJVNetwork : NSObject
 
-- (void)fetch;
+- (NSInteger)returnServerCodeFromResponse: (NSURLResponse *)response;
+- (void)fetchAllUsers;
+- (NSDictionary *)fetchUserWithID:(NSNumber *)idValue;
 - (void)postNickname:(NSString *)name;
 - (void)putNickname:(NSString *)name atIndex:(NSNumber *)number;
 - (void)deleteData;
