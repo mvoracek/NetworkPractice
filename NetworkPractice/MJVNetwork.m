@@ -48,96 +48,140 @@
     return status;
 }
 
-- (void)fetchAllUsers
+-(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
+{
+    NSLog(@"completed");
+}
+
+- (void)fetchAllUsers: (void (^)(NSDictionary *))handler
 {
     NSMutableURLRequest *request = [self makeRequestWithURL:@"http://localhost:5000"];
     NSURLSessionDataTask *task = [self.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data
-                                                                       options:NSJSONReadingAllowFragments
-                                                                         error:nil];
-            NSString *name = dictionary[@"users"];
-            NSLog(@"%@", name);
-            if (error) {
-                NSLog(@"%@", error);
-                return;
-            }
-            NSInteger status = [self returnServerCodeFromResponse:response];
-            NSLog(@"response status: %i", status);
-            if (status != 200) {
-                NSLog(@"%@", @"error response");
-                return;
-            }
-        });
-    }];
-    
-    [task resume];
-}
-
-- (NSDictionary *)fetchUserWithID:(NSNumber *)idValue
-{
-    __block NSDictionary *dictionary = [[NSDictionary alloc] init];
-    
-    NSString *idValueUrl = [NSString stringWithFormat:@"http://localhost:5000/fetch/%@", [idValue stringValue]];
-    NSMutableURLRequest *request = [self makeRequestWithURL:[NSURL URLWithString:idValueUrl]];
-    NSURLSessionDataTask *task = [self.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        
+        NSDictionary *dictionary;
+        NSInteger status = [self returnServerCodeFromResponse:response];
+        NSLog(@"response status: %i", status);
+        if (status == 200) {
             dictionary = [NSJSONSerialization JSONObjectWithData:data
                                                          options:NSJSONReadingAllowFragments
                                                            error:nil];
-            NSString *name = dictionary[@"users"];
-            NSLog(@"%@", name);
-            if (error) {
-                NSLog(@"%@", error);
-                return;
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(handler) {
+                handler(dictionary);
             }
-            NSInteger status = [self returnServerCodeFromResponse:response];
-            NSLog(@"response status: %i", status);
-            if (status != 200) {
-                NSLog(@"%@", @"error response");
-                return;
-            }
-            
         });
     }];
     
     [task resume];
-    
-    return dictionary;
 }
 
-- (void)postNickname:(NSString *)name
+- (void)fetchUserWithId: (NSNumber *)idValue completionHandler: (void (^)(NSDictionary *))handler
+{
+    NSString *idValueUrl = [NSString stringWithFormat:@"http://localhost:5000/fetch/%@", [idValue stringValue]];
+    NSMutableURLRequest *request = [self makeRequestWithURL:idValueUrl];
+    NSURLSessionDataTask *task = [self.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSDictionary *dictionary;
+        
+        NSInteger status = [self returnServerCodeFromResponse:response];
+        NSLog(@"response status: %i", status);
+        if (status == 200) {
+            dictionary = [NSJSONSerialization JSONObjectWithData:data
+                                                         options:NSJSONReadingAllowFragments
+                                                           error:nil];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(handler) {
+                handler(dictionary);
+            }
+        });
+    }];
+    
+    [task resume];
+
+}
+
+- (void)postNewUser:(NSString *)name completionHandler: (void (^)(NSInteger))handler
 {
     NSData *jsonData = [self createDataWithName:name];
     NSMutableURLRequest *request = [self makeRequestWithURL:@"http://localhost:5000/create"];
     
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPMethod:@"POST"];
-    NSURLSessionUploadTask *uploadTask = [self.defaultSession  uploadTaskWithRequest:request fromData:jsonData];
-    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    NSURLSessionUploadTask *uploadTask = [self.defaultSession uploadTaskWithRequest:request fromData:jsonData completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSInteger status = [self returnServerCodeFromResponse:response];
+        NSLog(@"response status: %i", status);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(handler) {
+                handler(status);
+            }
+        });
+        
+    }];
     
     [uploadTask resume];
 }
 
--(void)URLSession:(NSURLSession *)session task:(NSURLSessionTask *)task didCompleteWithError:(NSError *)error
+- (void)postNewUser:(NSString *)name atId:(NSNumber *)idValue completionHandler:(void (^)(NSInteger))handler
 {
-    NSLog(@"completed");
+    NSData *jsonData = [self createDataWithName:name];
+    NSString *idValueUrl = [NSString stringWithFormat:@"http://localhost:5000/create/%@", [idValue stringValue]];
+    NSMutableURLRequest *request = [self makeRequestWithURL:idValueUrl];
 }
 
-- (void)putNickname:(NSString *)name atIndex:(NSNumber *)index
+- (void)putNickname:(NSString *)name atIndex:(NSNumber *)index completionHandler: (void (^)(NSInteger))handler
 {
     NSData *jsonData = [self createDataWithName:name];
     NSMutableURLRequest *request = [self makeRequestWithURL:@"http://localhost:5000/update/2"];
 
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPMethod:@"PUT"];
-    NSURLSessionUploadTask *uploadTask = [self.defaultSession  uploadTaskWithRequest:request fromData:jsonData];
+    //NSURLSessionUploadTask *uploadTask = [self.defaultSession  uploadTaskWithRequest:request fromData:jsonData];
+    
+    NSURLSessionUploadTask *uploadTask = [self.defaultSession uploadTaskWithRequest:request fromData:jsonData completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSInteger status = [self returnServerCodeFromResponse:response];
+        NSLog(@"response status: %i", status);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(handler) {
+                handler(status);
+            }
+        });
+        
+    }];
     
     [uploadTask resume];
 }
 
+- (void)deleteUserWithID:(NSNumber *)idValue completionHandler: (void (^)(NSInteger))handler
+{
+    NSString *idValueUrl = [NSString stringWithFormat:@"http://localhost:5000/remove/%@", [idValue stringValue]];
+    NSMutableURLRequest *request = [self makeRequestWithURL:idValueUrl];
+    [request setHTTPMethod:@"DELETE"];
+
+    NSURLSessionDataTask *task = [self.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSInteger status = [self returnServerCodeFromResponse:response];
+        NSLog(@"response status: %i", status);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(handler) {
+                handler(status);
+            }
+        });
+    }];
+    
+    [task resume];
+}
+
 - (void)deleteData
 {
+    //delete all data needs to be created
     NSMutableURLRequest *request = [self makeRequestWithURL:@"http://localhost:5000/remove/1"];
     [request setHTTPMethod:@"DELETE"];
     NSURLSessionDataTask *task = [self.defaultSession  dataTaskWithRequest:request];

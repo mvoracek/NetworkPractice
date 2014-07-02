@@ -11,10 +11,11 @@
 @interface MJVNetwork : NSObject
 
 - (NSInteger)returnServerCodeFromResponse: (NSURLResponse *)response;
-- (void)fetchAllUsers;
-- (NSDictionary *)fetchUserWithID:(NSNumber *)idValue;
-- (void)postNickname:(NSString *)name;
-- (void)putNickname:(NSString *)name atIndex:(NSNumber *)number;
+- (void)fetchAllUsers: (void (^)(NSDictionary *))handler;
+- (void)fetchUserWithId: (NSNumber *)idValue completionHandler: (void (^)(NSDictionary *))handler;
+- (void)postNewUser:(NSString *)name completionHandler: (void (^)(NSInteger))handler;
+- (void)putNickname:(NSString *)name atIndex:(NSNumber *)index completionHandler: (void (^)(NSInteger))handler;
+- (void)deleteUserWithID:(NSNumber *)idValue completionHandler: (void (^)(NSInteger))handler;
 - (void)deleteData;
 
 @end

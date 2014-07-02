@@ -14,10 +14,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     MJVNetwork *network = [[MJVNetwork alloc]init];
-    [network postNickname:@"Lily"];
-    [network putNickname:@"Mami Chula" atIndex:@2];
-    [network deleteData];
-    [network fetchAllUsers];
+    [network fetchUserWithId:@3 completionHandler:^(NSDictionary *user) {}];
+    [network postNewUser:@"Lily" completionHandler:^(NSInteger status) {}];
+    [network putNickname:@"Lily Claire" atIndex:@6 completionHandler:^(NSInteger status) {}];
+    [network deleteUserWithID:@4 completionHandler:^(NSInteger status) {}];
+    [network fetchAllUsers:^(NSDictionary *status) {}];
     return YES;
 }
 

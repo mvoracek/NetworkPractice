@@ -32,20 +32,59 @@
 - (void)testFetch
 {
     id network = [[MJVNetwork alloc] init];
-    //NSDictionary *jsonDictionary = [network getUserWithID:14];
-    dispatch_semaphore_signal(self.waitSemaphore);
+    [network fetchUserWithId:@6 completionHandler:^(NSDictionary *dictionary) {
+        NSString *name = dictionary[@"user"][@"nickname"];
+        XCTAssertNotNil(dictionary, @"Network didn't return a user dictionary");
+        XCTAssertEqualObjects(name, @"Lily", @"Returned wrong nickname");
+        dispatch_semaphore_signal(self.waitSemaphore);
+    }];
     
     [self waitForSemaphoreOrSeconds:5];
-    
-    XCTAssertNotNil(network, @"Network think didn't return a user dictionary");
-    XCTAssertEqual([network valueForKey:@"id"], @14, @"User ID returned was not correct");
 }
 
 - (void)testPost
 {
     id network = [[MJVNetwork alloc] init];
-    [network postNickname:@"James Baxter"];
-    //XCTAssertNotNil(status, @"");
+    [network postNewUser:@"James Baxter" completionHandler:^(NSInteger status) {
+        NSLog(@"%ld", (long)status);
+        XCTAssertEqual(201, status, @"Code is not 201");
+        dispatch_semaphore_signal(self.waitSemaphore);
+    }];
+    
+    [self waitForSemaphoreOrSeconds:5];
+}
+
+- (void)testPut
+{
+    id network = [[MJVNetwork alloc] init];
+    [network putNickname:@"Clever Handle" atIndex:@5 completionHandler:^(NSInteger status) {
+        NSLog(@"%ld", (long)status);
+        XCTAssertEqual(200, status, @"Code is not 200");
+        [network fetchUserWithId:@5 completionHandler:^(NSDictionary *dictionary) {
+            NSString *name = dictionary[@"user"][@"nickname"];
+            XCTAssertEqualObjects(name, @"Clever Handle", @"Returned wrong nickname");
+        }];
+        dispatch_semaphore_signal(self.waitSemaphore);
+    }];
+    
+    [self waitForSemaphoreOrSeconds:5];
+}
+
+- (void)testDelete
+{
+    id network = [[MJVNetwork alloc] init];
+    
+    [network deleteUserWithID:@11 completionHandler:^(NSInteger status) {
+        NSLog(@"%ld", (long)status);
+        XCTAssertEqual(200, status, @"Code is not 200");
+        [network fetchUserWithId:@11 completionHandler:^(NSDictionary *dictionary) {
+            NSString *name = dictionary[@"user"][@"nickname"];
+            XCTAssertNil(name, "Element was not deleted");
+            dispatch_semaphore_signal(self.waitSemaphore);
+        }];
+    }];
+    
+    [self waitForSemaphoreOrSeconds:5];
 }
 
 - (void)waitForSemaphoreOrSeconds:(NSInteger)waitTimeInSeconds
