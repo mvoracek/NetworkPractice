@@ -22,6 +22,8 @@
 		C90B4266195B0D09003EA284 /* MJVNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = C90B4265195B0D09003EA284 /* MJVNetwork.m */; };
 		C90B4269195B6DFE003EA284 /* MJVAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = C90B4268195B6DFE003EA284 /* MJVAlbum.m */; };
 		C91F699A19633973000C3959 /* NetworkPracticeTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C90B4256195B0CBE003EA284 /* NetworkPracticeTests-Info.plist */; };
+		C9319D6219648AAE00166AA1 /* users.json in Resources */ = {isa = PBXBuildFile; fileRef = C9319D6119648AAE00166AA1 /* users.json */; };
+		C9319D6719658B0A00166AA1 /* MJVMockDataProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = C9319D6619658B0A00166AA1 /* MJVMockDataProtocol.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +57,9 @@
 		C90B4265195B0D09003EA284 /* MJVNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJVNetwork.m; sourceTree = "<group>"; };
 		C90B4267195B6DFE003EA284 /* MJVAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJVAlbum.h; sourceTree = "<group>"; };
 		C90B4268195B6DFE003EA284 /* MJVAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJVAlbum.m; sourceTree = "<group>"; };
+		C9319D6119648AAE00166AA1 /* users.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = users.json; sourceTree = "<group>"; };
+		C9319D6519658B0A00166AA1 /* MJVMockDataProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJVMockDataProtocol.h; sourceTree = "<group>"; };
+		C9319D6619658B0A00166AA1 /* MJVMockDataProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJVMockDataProtocol.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +146,8 @@
 			isa = PBXGroup;
 			children = (
 				C90B425A195B0CBE003EA284 /* NetworkPracticeTests.m */,
+				C9319D6519658B0A00166AA1 /* MJVMockDataProtocol.h */,
+				C9319D6619658B0A00166AA1 /* MJVMockDataProtocol.m */,
 				C90B4255195B0CBE003EA284 /* Supporting Files */,
 			);
 			path = NetworkPracticeTests;
@@ -151,6 +158,7 @@
 			children = (
 				C90B4256195B0CBE003EA284 /* NetworkPracticeTests-Info.plist */,
 				C90B4257195B0CBE003EA284 /* InfoPlist.strings */,
+				C9319D6119648AAE00166AA1 /* users.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -240,6 +248,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9319D6219648AAE00166AA1 /* users.json in Resources */,
 				C91F699A19633973000C3959 /* NetworkPracticeTests-Info.plist in Resources */,
 				C90B4259195B0CBE003EA284 /* InfoPlist.strings in Resources */,
 			);
@@ -264,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C90B425B195B0CBE003EA284 /* NetworkPracticeTests.m in Sources */,
+				C9319D6719658B0A00166AA1 /* MJVMockDataProtocol.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

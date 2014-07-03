@@ -59,12 +59,12 @@
     id network = [[MJVNetwork alloc] init];
     [network putNickname:@"Clever Handle" atIndex:@5 completionHandler:^(NSInteger status) {
         NSLog(@"%ld", (long)status);
-        XCTAssertEqual(200, status, @"Code is not 200");
+        XCTAssertEqual(201, status, @"Code is not 201");
         [network fetchUserWithId:@5 completionHandler:^(NSDictionary *dictionary) {
             NSString *name = dictionary[@"user"][@"nickname"];
             XCTAssertEqualObjects(name, @"Clever Handle", @"Returned wrong nickname");
+            dispatch_semaphore_signal(self.waitSemaphore);
         }];
-        dispatch_semaphore_signal(self.waitSemaphore);
     }];
     
     [self waitForSemaphoreOrSeconds:5];
@@ -76,7 +76,7 @@
     
     [network deleteUserWithID:@11 completionHandler:^(NSInteger status) {
         NSLog(@"%ld", (long)status);
-        XCTAssertEqual(200, status, @"Code is not 200");
+        XCTAssertEqual(204, status, @"Code is not 204");
         [network fetchUserWithId:@11 completionHandler:^(NSDictionary *dictionary) {
             NSString *name = dictionary[@"user"][@"nickname"];
             XCTAssertNil(name, "Element was not deleted");

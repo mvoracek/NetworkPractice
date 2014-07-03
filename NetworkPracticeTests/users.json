@@ -1,0 +1,46 @@
+{
+posts: [
+        {
+        author: {
+        nickname: "John"
+        },
+        body: "Beautiful day in Portland!"
+        },
+        {
+        author: {
+        nickname: "Susan"
+        },
+        body: "The Avengers movie was so cool!"
+        }
+        ],
+users: [
+        {
+        id: 1,
+        nickname: "Matt"
+        },
+        {
+        id: 2,
+        nickname: "Elizabeth"
+        },
+        {
+        id: 3,
+        nickname: "Lily"
+        },
+        {
+        id: 4,
+        nickname: "Adam"
+        },
+        {
+        id: 5,
+        nickname: "Jason"
+        },
+        {
+        id: 6,
+        nickname: "Tiffney"
+        },
+        {
+        id: 7,
+        nickname: "Steve"
+        },
+        ],
+}

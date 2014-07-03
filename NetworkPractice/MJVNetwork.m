@@ -132,6 +132,24 @@
     NSData *jsonData = [self createDataWithName:name];
     NSString *idValueUrl = [NSString stringWithFormat:@"http://localhost:5000/create/%@", [idValue stringValue]];
     NSMutableURLRequest *request = [self makeRequestWithURL:idValueUrl];
+    
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPMethod:@"POST"];
+    
+    NSURLSessionUploadTask *uploadTask = [self.defaultSession uploadTaskWithRequest:request fromData:jsonData completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSInteger status = [self returnServerCodeFromResponse:response];
+        NSLog(@"response status: %i", status);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(handler) {
+                handler(status);
+            }
+        });
+        
+    }];
+    
+    [uploadTask resume];
 }
 
 - (void)putNickname:(NSString *)name atIndex:(NSNumber *)index completionHandler: (void (^)(NSInteger))handler
@@ -141,7 +159,6 @@
 
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPMethod:@"PUT"];
-    //NSURLSessionUploadTask *uploadTask = [self.defaultSession  uploadTaskWithRequest:request fromData:jsonData];
     
     NSURLSessionUploadTask *uploadTask = [self.defaultSession uploadTaskWithRequest:request fromData:jsonData completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
