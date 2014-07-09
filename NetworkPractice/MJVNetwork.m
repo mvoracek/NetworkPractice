@@ -18,10 +18,16 @@
 
 - (instancetype)init
 {
+    return [self initWithURLProtocols:nil];
+}
+
+- (instancetype)initWithURLProtocols: (NSArray *)protocols
+{
     self = [super init];
     if (self) {
         NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
         configuration.HTTPMaximumConnectionsPerHost = 1;
+        configuration.protocolClasses = protocols;
         _defaultSession = [NSURLSession sessionWithConfiguration:configuration delegate:self delegateQueue:nil];
     }
     
@@ -35,9 +41,23 @@
     return request;
 }
 
+- (NSData *)createDataWithName:(NSString *)name email:(NSString *)email
+{
+    NSDictionary *userDictionary = [NSDictionary dictionaryWithObjectsAndKeys:name, @"nickname", email, @"email", nil];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:userDictionary options:0 error:nil];
+    return data;
+}
+
 - (NSData *)createDataWithName:(NSString *)name
 {
     NSDictionary *userDictionary = [NSDictionary dictionaryWithObjectsAndKeys:name, @"nickname", nil];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:userDictionary options:0 error:nil];
+    return data;
+}
+
+- (NSData *)createDataWithEmail:(NSString *)email
+{
+    NSDictionary *userDictionary = [NSDictionary dictionaryWithObjectsAndKeys:email, @"email", nil];
     NSData *data = [NSJSONSerialization dataWithJSONObject:userDictionary options:0 error:nil];
     return data;
 }
@@ -55,16 +75,18 @@
 
 - (void)fetchAllUsers: (void (^)(NSDictionary *))handler
 {
-    NSMutableURLRequest *request = [self makeRequestWithURL:@"http://localhost:5000"];
+    NSMutableURLRequest *request = [self makeRequestWithURL:@"http://localhost:5000/fetch"];
     NSURLSessionDataTask *task = [self.defaultSession dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         NSDictionary *dictionary;
         NSInteger status = [self returnServerCodeFromResponse:response];
         NSLog(@"response status: %i", status);
         if (status == 200) {
+            NSError *jsonError = nil;
             dictionary = [NSJSONSerialization JSONObjectWithData:data
                                                          options:NSJSONReadingAllowFragments
-                                                           error:nil];
+                                                           error:&jsonError];
+            NSLog(@"%@", dictionary);
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -90,6 +112,7 @@
             dictionary = [NSJSONSerialization JSONObjectWithData:data
                                                          options:NSJSONReadingAllowFragments
                                                            error:nil];
+            NSLog(@"%@", dictionary);
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -103,9 +126,9 @@
 
 }
 
-- (void)postNewUser:(NSString *)name completionHandler: (void (^)(NSInteger))handler
+- (void)postNewUser:(NSString *)name email:(NSString *)email completionHandler: (void (^)(NSInteger))handler
 {
-    NSData *jsonData = [self createDataWithName:name];
+    NSData *jsonData = [self createDataWithName:name email:email];
     NSMutableURLRequest *request = [self makeRequestWithURL:@"http://localhost:5000/create"];
     
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -127,14 +150,14 @@
     [uploadTask resume];
 }
 
-- (void)postNewUser:(NSString *)name atId:(NSNumber *)idValue completionHandler:(void (^)(NSInteger))handler
+- (void)putNickname:(NSString *)name andEmail:(NSString *)email atIndex:(NSNumber *)index completionHandler: (void (^)(NSInteger))handler
 {
-    NSData *jsonData = [self createDataWithName:name];
-    NSString *idValueUrl = [NSString stringWithFormat:@"http://localhost:5000/create/%@", [idValue stringValue]];
+    NSData *jsonData = [self createDataWithName:name email:email];;
+    NSString *idValueUrl = [NSString stringWithFormat:@"http://localhost:5000/update/%@", [index stringValue]];
     NSMutableURLRequest *request = [self makeRequestWithURL:idValueUrl];
-    
+
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPMethod:@"POST"];
+    [request setHTTPMethod:@"PUT"];
     
     NSURLSessionUploadTask *uploadTask = [self.defaultSession uploadTaskWithRequest:request fromData:jsonData completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
@@ -154,9 +177,35 @@
 
 - (void)putNickname:(NSString *)name atIndex:(NSNumber *)index completionHandler: (void (^)(NSInteger))handler
 {
-    NSData *jsonData = [self createDataWithName:name];
-    NSMutableURLRequest *request = [self makeRequestWithURL:@"http://localhost:5000/update/2"];
+    NSData *jsonData = [self createDataWithName:name];;
+    NSString *idValueUrl = [NSString stringWithFormat:@"http://localhost:5000/update/%@", [index stringValue]];
+    NSMutableURLRequest *request = [self makeRequestWithURL:idValueUrl];
+    
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPMethod:@"PUT"];
+    
+    NSURLSessionUploadTask *uploadTask = [self.defaultSession uploadTaskWithRequest:request fromData:jsonData completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        NSInteger status = [self returnServerCodeFromResponse:response];
+        NSLog(@"response status: %i", status);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if(handler) {
+                handler(status);
+            }
+        });
+        
+    }];
+    
+    [uploadTask resume];
+}
 
+- (void)putEmail:(NSString *)email atIndex:(NSNumber *)index completionHandler: (void (^)(NSInteger))handler
+{
+    NSData *jsonData = [self createDataWithEmail:email];;
+    NSString *idValueUrl = [NSString stringWithFormat:@"http://localhost:5000/update/%@", [index stringValue]];
+    NSMutableURLRequest *request = [self makeRequestWithURL:idValueUrl];
+    
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPMethod:@"PUT"];
     

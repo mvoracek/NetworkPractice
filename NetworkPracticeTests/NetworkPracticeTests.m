@@ -8,9 +8,15 @@
 
 #import <XCTest/XCTest.h>
 #import "MJVNetwork.h"
+#import "MJVMockDataProtocol.h"
 
 @interface NetworkPracticeTests : XCTestCase
 @property dispatch_semaphore_t waitSemaphore;
+
+@end
+
+@interface MJVNetwork (supercooltestingstuff)
+- (instancetype)initWithURLProtocols: (NSArray *)protocols;
 
 @end
 
@@ -29,13 +35,72 @@
     [super tearDown];
 }
 
+#pragma mark - Mock Data Tests (uses initWithURLProtocols)
+
+- (void)testFetchMockData
+{
+    id network = [[MJVNetwork alloc] initWithURLProtocols:@[[MJVMockDataProtocol class]]];
+    [network fetchAllUsers:^(NSDictionary *dictionary) {
+        XCTAssertNotNil(dictionary, @"Mock Data didn't return a user dictionary");
+        dispatch_semaphore_signal(self.waitSemaphore);
+    }];
+    
+    [self waitForSemaphoreOrSeconds:5];
+}
+
+- (void)testFetchByIDMockData
+{
+    id network = [[MJVNetwork alloc] initWithURLProtocols:@[[MJVMockDataProtocol class]]];
+    [network fetchUserWithId:@1 completionHandler:^(NSDictionary *dictionary) {
+        XCTAssertNotNil(dictionary, @"Mock Data didn't return a user dictionary");
+        dispatch_semaphore_signal(self.waitSemaphore);
+    }];
+    
+    [self waitForSemaphoreOrSeconds:5];
+}
+
+- (void)testPostMockData
+{
+    id network = [[MJVNetwork alloc] initWithURLProtocols:@[[MJVMockDataProtocol class]]];
+    [network postNewUser:@"Some Other Guy" email:@"SomeOtherGuy@hotmail.com" completionHandler:^(NSInteger status) {
+        XCTAssertEqual(200, status, @"Code is not 200");
+        dispatch_semaphore_signal(self.waitSemaphore);
+    }];
+    [self waitForSemaphoreOrSeconds:5];
+}
+
+- (void) testPutMockData
+{
+    id network = [[MJVNetwork alloc] initWithURLProtocols:@[[MJVMockDataProtocol class]]];
+    [network putNickname:@"New Name" atIndex:@2 completionHandler:^(NSInteger status) {
+        XCTAssertEqual(200, status, @"Code is not 200");
+        dispatch_semaphore_signal(self.waitSemaphore);
+    }];
+    
+    [self waitForSemaphoreOrSeconds:5];
+}
+
+- (void)testDeleteMockData
+{
+    id network = [[MJVNetwork alloc] initWithURLProtocols:@[[MJVMockDataProtocol class]]];
+    
+    [network deleteUserWithID:@4 completionHandler:^(NSInteger status) {
+        XCTAssertEqual(200, status, @"Code is not 200");
+        dispatch_semaphore_signal(self.waitSemaphore);
+    }];
+    
+    [self waitForSemaphoreOrSeconds:5];
+}
+
+#pragma mark - Network tests
+
 - (void)testFetch
 {
     id network = [[MJVNetwork alloc] init];
-    [network fetchUserWithId:@6 completionHandler:^(NSDictionary *dictionary) {
+    [network fetchUserWithId:@1 completionHandler:^(NSDictionary *dictionary) {
         NSString *name = dictionary[@"user"][@"nickname"];
         XCTAssertNotNil(dictionary, @"Network didn't return a user dictionary");
-        XCTAssertEqualObjects(name, @"Lily", @"Returned wrong nickname");
+        XCTAssertEqualObjects(name, @"Matt", @"Returned wrong nickname");
         dispatch_semaphore_signal(self.waitSemaphore);
     }];
     
@@ -45,7 +110,7 @@
 - (void)testPost
 {
     id network = [[MJVNetwork alloc] init];
-    [network postNewUser:@"James Baxter" completionHandler:^(NSInteger status) {
+    [network postNewUser:@"James Baxter" email:@"JimmyB@aol.com" completionHandler:^(NSInteger status) {
         NSLog(@"%ld", (long)status);
         XCTAssertEqual(201, status, @"Code is not 201");
         dispatch_semaphore_signal(self.waitSemaphore);

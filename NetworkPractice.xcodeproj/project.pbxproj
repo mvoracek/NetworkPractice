@@ -22,6 +22,10 @@
 		C90B4266195B0D09003EA284 /* MJVNetwork.m in Sources */ = {isa = PBXBuildFile; fileRef = C90B4265195B0D09003EA284 /* MJVNetwork.m */; };
 		C90B4269195B6DFE003EA284 /* MJVAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = C90B4268195B6DFE003EA284 /* MJVAlbum.m */; };
 		C91F699A19633973000C3959 /* NetworkPracticeTests-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C90B4256195B0CBE003EA284 /* NetworkPracticeTests-Info.plist */; };
+		C921B748196C9147009D0A6C /* create.json in Resources */ = {isa = PBXBuildFile; fileRef = C921B747196C9147009D0A6C /* create.json */; };
+		C921B74A196D942B009D0A6C /* remove.json in Resources */ = {isa = PBXBuildFile; fileRef = C921B749196D942B009D0A6C /* remove.json */; };
+		C921B74C196D945C009D0A6C /* fetch.json in Resources */ = {isa = PBXBuildFile; fileRef = C921B74B196D945C009D0A6C /* fetch.json */; };
+		C921B74E196D948D009D0A6C /* update.json in Resources */ = {isa = PBXBuildFile; fileRef = C921B74D196D948D009D0A6C /* update.json */; };
 		C9319D6219648AAE00166AA1 /* users.json in Resources */ = {isa = PBXBuildFile; fileRef = C9319D6119648AAE00166AA1 /* users.json */; };
 		C9319D6719658B0A00166AA1 /* MJVMockDataProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = C9319D6619658B0A00166AA1 /* MJVMockDataProtocol.m */; };
 /* End PBXBuildFile section */
@@ -57,6 +61,10 @@
 		C90B4265195B0D09003EA284 /* MJVNetwork.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJVNetwork.m; sourceTree = "<group>"; };
 		C90B4267195B6DFE003EA284 /* MJVAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJVAlbum.h; sourceTree = "<group>"; };
 		C90B4268195B6DFE003EA284 /* MJVAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJVAlbum.m; sourceTree = "<group>"; };
+		C921B747196C9147009D0A6C /* create.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = create.json; sourceTree = "<group>"; };
+		C921B749196D942B009D0A6C /* remove.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = remove.json; sourceTree = "<group>"; };
+		C921B74B196D945C009D0A6C /* fetch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fetch.json; sourceTree = "<group>"; };
+		C921B74D196D948D009D0A6C /* update.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = update.json; sourceTree = "<group>"; };
 		C9319D6119648AAE00166AA1 /* users.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = users.json; sourceTree = "<group>"; };
 		C9319D6519658B0A00166AA1 /* MJVMockDataProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJVMockDataProtocol.h; sourceTree = "<group>"; };
 		C9319D6619658B0A00166AA1 /* MJVMockDataProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJVMockDataProtocol.m; sourceTree = "<group>"; };
@@ -159,6 +167,10 @@
 				C90B4256195B0CBE003EA284 /* NetworkPracticeTests-Info.plist */,
 				C90B4257195B0CBE003EA284 /* InfoPlist.strings */,
 				C9319D6119648AAE00166AA1 /* users.json */,
+				C921B74B196D945C009D0A6C /* fetch.json */,
+				C921B747196C9147009D0A6C /* create.json */,
+				C921B74D196D948D009D0A6C /* update.json */,
+				C921B749196D942B009D0A6C /* remove.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -249,8 +261,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C9319D6219648AAE00166AA1 /* users.json in Resources */,
+				C921B74E196D948D009D0A6C /* update.json in Resources */,
 				C91F699A19633973000C3959 /* NetworkPracticeTests-Info.plist in Resources */,
+				C921B74C196D945C009D0A6C /* fetch.json in Resources */,
+				C921B74A196D942B009D0A6C /* remove.json in Resources */,
 				C90B4259195B0CBE003EA284 /* InfoPlist.strings in Resources */,
+				C921B748196C9147009D0A6C /* create.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

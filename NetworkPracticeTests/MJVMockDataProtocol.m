@@ -15,6 +15,11 @@
     return YES;
 }
 
++ (NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request
+{
+    return request;
+}
+
 - (void)stopLoading
 {
     
@@ -24,7 +29,7 @@
 {
     NSLog(@"serving mock data from disk");
     
-    NSString *endOfPath = [self.request.URL.pathComponents lastObject];
+    NSString *endOfPath = [self.request.URL lastPathComponent];
     NSString *filePath = [[NSBundle bundleForClass:[self class]] pathForResource:endOfPath ofType:@"json"];
     NSData *data = [NSData dataWithContentsOfFile:filePath];
     

@@ -13,8 +13,10 @@
 - (NSInteger)returnServerCodeFromResponse: (NSURLResponse *)response;
 - (void)fetchAllUsers: (void (^)(NSDictionary *))handler;
 - (void)fetchUserWithId: (NSNumber *)idValue completionHandler: (void (^)(NSDictionary *))handler;
-- (void)postNewUser:(NSString *)name completionHandler: (void (^)(NSInteger))handler;
+- (void)postNewUser:(NSString *)name email:(NSString *)email completionHandler: (void (^)(NSInteger))handler;
+- (void)putNickname:(NSString *)name andEmail:(NSString *)email atIndex:(NSNumber *)index completionHandler: (void (^)(NSInteger))handler;
 - (void)putNickname:(NSString *)name atIndex:(NSNumber *)index completionHandler: (void (^)(NSInteger))handler;
+- (void)putEmail:(NSString *)email atIndex:(NSNumber *)index completionHandler: (void (^)(NSInteger))handler;
 - (void)deleteUserWithID:(NSNumber *)idValue completionHandler: (void (^)(NSInteger))handler;
 - (void)deleteData;
 
