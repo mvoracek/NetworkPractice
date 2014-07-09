@@ -139,10 +139,10 @@
 {
     id network = [[MJVNetwork alloc] init];
     
-    [network deleteUserWithID:@11 completionHandler:^(NSInteger status) {
+    [network deleteUserWithID:@3 completionHandler:^(NSInteger status) {
         NSLog(@"%ld", (long)status);
         XCTAssertEqual(204, status, @"Code is not 204");
-        [network fetchUserWithId:@11 completionHandler:^(NSDictionary *dictionary) {
+        [network fetchUserWithId:@3 completionHandler:^(NSDictionary *dictionary) {
             NSString *name = dictionary[@"user"][@"nickname"];
             XCTAssertNil(name, "Element was not deleted");
             dispatch_semaphore_signal(self.waitSemaphore);

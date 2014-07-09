@@ -26,6 +26,7 @@
 		C921B74A196D942B009D0A6C /* remove.json in Resources */ = {isa = PBXBuildFile; fileRef = C921B749196D942B009D0A6C /* remove.json */; };
 		C921B74C196D945C009D0A6C /* fetch.json in Resources */ = {isa = PBXBuildFile; fileRef = C921B74B196D945C009D0A6C /* fetch.json */; };
 		C921B74E196D948D009D0A6C /* update.json in Resources */ = {isa = PBXBuildFile; fileRef = C921B74D196D948D009D0A6C /* update.json */; };
+		C921B750196DA315009D0A6C /* 1.json in Resources */ = {isa = PBXBuildFile; fileRef = C921B74F196DA315009D0A6C /* 1.json */; };
 		C9319D6219648AAE00166AA1 /* users.json in Resources */ = {isa = PBXBuildFile; fileRef = C9319D6119648AAE00166AA1 /* users.json */; };
 		C9319D6719658B0A00166AA1 /* MJVMockDataProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = C9319D6619658B0A00166AA1 /* MJVMockDataProtocol.m */; };
 /* End PBXBuildFile section */
@@ -65,6 +66,7 @@
 		C921B749196D942B009D0A6C /* remove.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = remove.json; sourceTree = "<group>"; };
 		C921B74B196D945C009D0A6C /* fetch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fetch.json; sourceTree = "<group>"; };
 		C921B74D196D948D009D0A6C /* update.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = update.json; sourceTree = "<group>"; };
+		C921B74F196DA315009D0A6C /* 1.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 1.json; sourceTree = "<group>"; };
 		C9319D6119648AAE00166AA1 /* users.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = users.json; sourceTree = "<group>"; };
 		C9319D6519658B0A00166AA1 /* MJVMockDataProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJVMockDataProtocol.h; sourceTree = "<group>"; };
 		C9319D6619658B0A00166AA1 /* MJVMockDataProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJVMockDataProtocol.m; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				C921B747196C9147009D0A6C /* create.json */,
 				C921B74D196D948D009D0A6C /* update.json */,
 				C921B749196D942B009D0A6C /* remove.json */,
+				C921B74F196DA315009D0A6C /* 1.json */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -267,6 +270,7 @@
 				C921B74A196D942B009D0A6C /* remove.json in Resources */,
 				C90B4259195B0CBE003EA284 /* InfoPlist.strings in Resources */,
 				C921B748196C9147009D0A6C /* create.json in Resources */,
+				C921B750196DA315009D0A6C /* 1.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
